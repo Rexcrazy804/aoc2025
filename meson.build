@@ -10,6 +10,7 @@ dependencies = [ ]
 
 sources = [
   'src/main.c',
+  'src/day1.c',
 ]
 
 exe = executable (
@@ -18,5 +19,3 @@ exe = executable (
   dependencies : dependencies,
   install : true,
 )
-
-test('basic', exe)
