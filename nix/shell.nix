@@ -9,8 +9,7 @@
 }:
 mkShell.override (old: {stdenv = stdenvAdapters.useMoldLinker old.stdenv;})
 {
-  name = "c-dev";
-
+  name = "c-meson";
   packages = [
     cmake
     meson

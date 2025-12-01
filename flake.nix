@@ -1,14 +1,20 @@
 {
   description = "Flake with simple meson devShell";
-  inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    systems.url = "github:nix-systems/x86_64-linux";
+  };
 
   outputs = {
     self,
     nixpkgs,
+    systems,
   }: let
-    eachSystem = fn: nixpkgs.lib.mapAttrs fn nixpkgs.legacyPackages;
+    pkgsFor = nixpkgs.legacyPackages;
+    eachSystem = fn: nixpkgs.lib.genAttrs (import systems) (system: fn pkgsFor.${system});
   in {
-    devShells = eachSystem (_: pkgs: {
+    devShells = eachSystem (pkgs: {
       default = pkgs.callPackage ./nix/shell.nix {};
     });
   };
