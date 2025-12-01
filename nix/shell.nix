@@ -1,4 +1,5 @@
 {
+  stdenvAdapters,
   cmake,
   meson,
   ninja,
@@ -6,7 +7,8 @@
   mkShell,
   clang-tools,
 }:
-mkShell {
+mkShell.override (old: {stdenv = stdenvAdapters.useMoldLinker old.stdenv;})
+{
   name = "c-dev";
 
   packages = [
