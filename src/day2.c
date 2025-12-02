@@ -163,13 +163,28 @@ static long int get_invalid_sum2(long int r1, long int r2, int r1l, int r2l) {
       bool break_f = false;
       bool has_zero = false;
       long int prev = 0;
+      int pos = 0;
 
       while (seq_c > 0) {
+        pos += 1;
+
         long int digit = seq_c % 10;
+
+        if (digit > 1) {
+          break_f = true;
+          break;
+        }
+
         if (digit == 0) {
           has_zero = true;
         }
-        if (digit > 1) {
+
+        if (j != 10 && pos % subdiglen == 1 && digit != 1) {
+          break_f = true;
+          break;
+        }
+
+        if (j != 10 && pos % subdiglen != 1 && digit == 1) {
           break_f = true;
           break;
         }
