@@ -10,9 +10,10 @@ add_project_arguments('-Wconversion', '-Wno-cpp', language: 'c')
 
 dependencies = [ ]
 
+# todo automate this with an option?
 sources = [
   'src/main.c',
-  'src/day1.c',
+  # 'src/day1.c',
   'src/day2.c',
 ]
 
