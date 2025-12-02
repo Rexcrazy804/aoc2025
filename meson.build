@@ -6,15 +6,30 @@ project(
   default_options : ['warning_level=3'],
 )
 
-add_project_arguments('-Wconversion', '-Wno-cpp', language: 'c')
+day = get_option('aoc_day')
+
+if day == 'default'
+  date_r = run_command('date', '+%d', check:true)
+  day = (date_r.stdout().strip().to_int()).to_string()
+endif
+
+c_day_header = '-DDAY_INCLUDE="day' + day + '.h"'
+c_day = '-DDAY="' + day + '"'
+c_day_src = 'src/day' + day + '.c'
+
+add_project_arguments(
+  '-Wconversion',
+  '-Wno-cpp',
+  c_day_header,
+  c_day,
+  language: 'c',
+)
 
 dependencies = [ ]
 
-# todo automate this with an option?
 sources = [
   'src/main.c',
-  # 'src/day1.c',
-  'src/day2.c',
+  c_day_src,
 ]
 
 exe = executable (

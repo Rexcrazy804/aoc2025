@@ -1,7 +1,5 @@
 #include <stdio.h>
-
-#define DAY "2"
-#include "day2.h"
+#include DAY_INCLUDE
 
 int main(void) {
   const char *test_file = "./inputs/day" DAY "t.txt";
