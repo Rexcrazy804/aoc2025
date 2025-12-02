@@ -7,6 +7,8 @@ int main(void) {
   const char *test_file = "./inputs/day" DAY "t.txt";
   const char *input_file = "./inputs/day" DAY ".txt";
 
+  printf(" D: " DAY "\n");
+
   int (*driver)(FILE *, FILE *) = day_driver;
 
   FILE *test = fopen(test_file, "r");
