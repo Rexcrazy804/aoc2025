@@ -6,11 +6,14 @@ project(
   default_options : ['warning_level=3'],
 )
 
+add_project_arguments('-Wconversion', language: 'c')
+
 dependencies = [ ]
 
 sources = [
   'src/main.c',
   'src/day1.c',
+  'src/day2.c',
 ]
 
 exe = executable (

@@ -1,17 +1,21 @@
-#include "day1.h"
+#include "day2.h"
 #include <stdio.h>
 
-#define DAY "1"
+#define DAY "2"
 
 int main(void) {
   const char *test_file = "./inputs/day" DAY "t.txt";
   const char *input_file = "./inputs/day" DAY ".txt";
-  const int test_answer = 6;
-  int (*func)(FILE *) = day1_p1;
+  const long int test_answer = 1227775554;
+  long int (*func)(FILE *) = day2_p1;
 
   FILE *test = fopen(test_file, "r");
-  int answer = func(test);
-  printf("test: %d\n", answer);
+  if (!test) {
+    printf("Failed to open test file\n");
+    return -1;
+  };
+  long answer = func(test);
+  printf("test: %ld\n", answer);
   fclose(test);
 
   if (answer != test_answer) {
@@ -20,8 +24,12 @@ int main(void) {
   }
 
   FILE *actual = fopen(input_file, "r");
+  if (!actual) {
+    printf("Failed to open input file\n");
+    return -1;
+  };
   answer = func(actual);
-  printf("actual: %d\n", answer);
+  printf("actual: %ld\n", answer);
   fclose(actual);
 
   return 0;
