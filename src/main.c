@@ -6,8 +6,8 @@
 int main(void) {
   const char *test_file = "./inputs/day" DAY "t.txt";
   const char *input_file = "./inputs/day" DAY ".txt";
-  const long int test_answer = 1227775554;
-  long int (*func)(FILE *) = day2_p1;
+  const long int test_answer = 4174379265;
+  long int (*func)(FILE *) = day2_p2;
 
   FILE *test = fopen(test_file, "r");
   if (!test) {
