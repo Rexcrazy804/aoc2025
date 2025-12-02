@@ -115,20 +115,14 @@ static long int get_invalid_sum(long int r1, long int r2, int r1l, int r2l) {
 }
 
 static long int get_invalid_sum2(long int r1, long int r2, int r1l, int r2l) {
-  if (r1 < 0 || r2 < 0) {
-    // overflow check
-    printf("R: %ld %ld\n", r1, r2);
-    exit(1);
-  }
-
   long int sum = 0;
-
   long int i;
+
   for (i = r1; i <= r2; i += 1) {
     int diglen = get_digit_count(r1l, r2l, i);
-
     long int j;
     int subdiglen = 0;
+
     for (j = 10; j <= power(10, diglen); j *= 10) {
       subdiglen += 1;
       long int subdigits = i % j;
@@ -137,91 +131,59 @@ static long int get_invalid_sum2(long int r1, long int r2, int r1l, int r2l) {
         break;
       }
 
-      if (subdigits == 0) {
-        continue;
-      }
-
       // filter out sub digits that that contain less than j / 10 digits
       // i.e. if we are diving by 100
       // we NEEED 2 digit numbers
-      if (subdigits < j / 10) {
+      if (subdigits < j / 10 || subdigits == 0) {
         continue;
       }
 
+      // see if the sequence can fit in the digit
       if (diglen % subdiglen != 0) {
         continue;
       }
 
       long int sequence = i / subdigits;
-      int seqlen = get_digit_count(0, diglen, sequence);
-
-      if ((seqlen - 1) % subdiglen) {
-        continue;
-      }
 
       long int seq_c = sequence;
-      bool break_f = false;
-      bool has_zero = false;
-      long int prev = 0;
       int pos = 0;
-
+      bool break_f = false;
       while (seq_c > 0) {
+        long int digit = seq_c % 10;
         pos += 1;
 
-        long int digit = seq_c % 10;
-
+        // if it ain't all ones and zeros it ain't it bois
         if (digit > 1) {
           break_f = true;
           break;
         }
 
-        if (digit == 0) {
-          has_zero = true;
+        // special case
+        if (j == 10) {
+          if (digit != 1) {
+            break_f = true;
+            break;
+          }
+        } else {
+          // CORE
+          if (pos % subdiglen == 1 && digit != 1) {
+            break_f = true;
+            break;
+          }
+          if (pos % subdiglen != 1 && digit == 1) {
+            break_f = true;
+            break;
+          }
         }
-
-        if (j != 10 && pos % subdiglen == 1 && digit != 1) {
-          break_f = true;
-          break;
-        }
-
-        if (j != 10 && pos % subdiglen != 1 && digit == 1) {
-          break_f = true;
-          break;
-        }
-
-        if (j == 10 && digit != 1) {
-          break_f = true;
-          break;
-        }
-
-        // prune sequences with consecutive 1's if j is not 10
-        if (prev == 1 && digit == 1 && j != 10) {
-          break_f = true;
-          break;
-        }
-
         seq_c = seq_c / 10;
-        prev = digit;
       }
 
-      if (j != 10 && seq_c) {
+      if (break_f) {
         continue;
       }
 
-      if (break_f || sequence == 1 || sequence % 10 != 1) {
-        continue;
-      }
-
-      if (j != 10 && !has_zero) {
-        continue;
-      }
-
-      printf("num: %ld, len: %ld, seq %ld\n", i, j, sequence);
       sum += i;
       break;
-
-      // printf("%ld\n", i);
-      // break;
     }
   }
 
