@@ -6,6 +6,7 @@
   pkg-config,
   mkShell,
   clang-tools,
+  hyperfine,
 }:
 mkShell.override (old: {stdenv = stdenvAdapters.useMoldLinker old.stdenv;})
 {
@@ -16,5 +17,6 @@ mkShell.override (old: {stdenv = stdenvAdapters.useMoldLinker old.stdenv;})
     ninja
     pkg-config
     clang-tools
+    hyperfine
   ];
 }
