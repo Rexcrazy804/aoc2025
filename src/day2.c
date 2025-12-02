@@ -1,13 +1,31 @@
-#include "day2.h"
-#include "stdbool.h"
-#include "stdlib.h"
-#include "string.h"
+#include <assert.h>
+#include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "day2.h"
 
 static long int get_invalid_sum(long int, long int, int, int);
 static long int get_invalid_sum2(long int, long int, int, int);
 static int get_digit_count(int, int, long int);
 static long int power(int, int);
+
+int day_driver(FILE *test, FILE *input) {
+  const long int p1_ans = 1227775554;
+  const long int p2_ans = 4174379265;
+
+  assert(p1_ans == day2_p1(test));
+  printf("P1: %ld\n", day2_p1(input));
+
+  rewind(test);
+  rewind(input);
+
+  assert(p2_ans == day2_p2(test));
+  printf("P2: %ld\n", day2_p2(input));
+
+  return 0;
+}
 
 long int day2_p1(FILE *file) {
   long int sum_invalids = 0;

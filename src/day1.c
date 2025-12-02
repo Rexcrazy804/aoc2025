@@ -1,6 +1,10 @@
+// THIS FILE HAS NOT BEEN STANDARDIZED
+
 #include "day1.h"
 #include <stdlib.h>
 #include <string.h>
+
+static void rotate(int *, int *, int, char);
 
 int day1_p1(FILE *file) {
   char direction, current;
@@ -15,7 +19,7 @@ int day1_p1(FILE *file) {
   passwd = 0;
   direction = '0';
   rotations = 0;
-  while ((current = fgetc(file)) != EOF) {
+  while ((current = (char)fgetc(file)) != EOF) {
     if (current == 'L' || current == 'R') {
       direction = current;
       weight = 0;

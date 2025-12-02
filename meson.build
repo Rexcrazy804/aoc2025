@@ -6,7 +6,7 @@ project(
   default_options : ['warning_level=3'],
 )
 
-add_project_arguments('-Wconversion', language: 'c')
+add_project_arguments('-Wconversion', '-Wno-cpp', language: 'c')
 
 dependencies = [ ]
 

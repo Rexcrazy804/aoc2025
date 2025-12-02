@@ -1,36 +1,31 @@
-#include "day2.h"
 #include <stdio.h>
 
 #define DAY "2"
+#include "day2.h"
 
 int main(void) {
   const char *test_file = "./inputs/day" DAY "t.txt";
   const char *input_file = "./inputs/day" DAY ".txt";
-  const long int test_answer = 4174379265;
-  long int (*func)(FILE *) = day2_p2;
+
+  int (*driver)(FILE *, FILE *) = day_driver;
 
   FILE *test = fopen(test_file, "r");
+  FILE *actual = fopen(input_file, "r");
+
   if (!test) {
     printf("Failed to open test file\n");
     return -1;
   };
-  long answer = func(test);
-  printf("test: %ld\n", answer);
-  fclose(test);
 
-  if (answer != test_answer) {
-    printf("test failed :<\n");
-    return -1;
-  }
-
-  FILE *actual = fopen(input_file, "r");
   if (!actual) {
     printf("Failed to open input file\n");
     return -1;
   };
-  answer = func(actual);
-  printf("actual: %ld\n", answer);
+
+  int ret = driver(test, actual);
+
+  fclose(test);
   fclose(actual);
 
-  return 0;
+  return ret;
 }

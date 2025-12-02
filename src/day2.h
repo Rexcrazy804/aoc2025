@@ -1,8 +1,9 @@
 #include <stdio.h>
 
-#ifndef __DAY1_H__
-#define __DAY1_H__
+#ifndef __DAY2_H__
+#define __DAY2_H__
 
+int day_driver(FILE *, FILE *);
 long int day2_p1(FILE *);
 long int day2_p2(FILE *);
 
