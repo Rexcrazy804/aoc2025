@@ -1,4 +1,5 @@
 {
+  gcc15Stdenv,
   stdenvAdapters,
   cmake,
   meson,
@@ -8,7 +9,7 @@
   clang-tools,
   hyperfine,
 }:
-mkShell.override (old: {stdenv = stdenvAdapters.useMoldLinker old.stdenv;})
+mkShell.override (old: {stdenv = stdenvAdapters.useMoldLinker gcc15Stdenv;})
 {
   name = "c-meson";
   packages = [
