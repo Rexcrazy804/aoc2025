@@ -1,0 +1,8 @@
+checkincrease(map, result, i-1, j-1, 1);
+checkincrease(map, result, i+1, j+1, 1);
+checkincrease(map, result, i-1, j, 1);
+checkincrease(map, result, i+1, j, 1);
+checkincrease(map, result, i, j-1, 1);
+checkincrease(map, result, i, j+1, 1);
+checkincrease(map, result, i-1, j+1, 1);
+checkincrease(map, result, i+1, j-1, 1);

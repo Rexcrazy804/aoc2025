@@ -66,16 +66,9 @@ int paper_rolls(char map[SIZE][SIZE], bool p2) {
         checkincrease(map, result, i, j, 5);
       }
       if (map[i][j] == '.') {
-        checkincrease(map, result, i-1, j-1, 1);
-        checkincrease(map, result, i+1, j+1, 1);
-
-        checkincrease(map, result, i-1, j, 1);
-        checkincrease(map, result, i+1, j, 1);
-        checkincrease(map, result, i, j-1, 1);
-        checkincrease(map, result, i, j+1, 1);
-
-        checkincrease(map, result, i-1, j+1, 1);
-        checkincrease(map, result, i+1, j-1, 1);
+        // sometimes you realize you are    a lazy slob
+        //           I           I   too am
+        #include "day4_omnicheck"
       }
     }
   }
@@ -90,16 +83,7 @@ int paper_rolls(char map[SIZE][SIZE], bool p2) {
           if (p2) {
             result[i][j] = 0;
             map[i][j] = '.';
-            checkincrease(map, result, i-1, j-1, 1);
-            checkincrease(map, result, i+1, j+1, 1);
-
-            checkincrease(map, result, i-1, j, 1);
-            checkincrease(map, result, i+1, j, 1);
-            checkincrease(map, result, i, j-1, 1);
-            checkincrease(map, result, i, j+1, 1);
-
-            checkincrease(map, result, i-1, j+1, 1);
-            checkincrease(map, result, i+1, j-1, 1);
+            #include "day4_omnicheck"
           }
         }
       }
