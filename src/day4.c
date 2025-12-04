@@ -5,18 +5,15 @@
 #include "day4.h"
 #define SIZE 135
 
-int paper_rolls(char[SIZE][SIZE]);
+int paper_rolls(char[SIZE][SIZE], bool);
 void checkincrease(char[SIZE][SIZE], int[SIZE][SIZE], int, int, int);
 
-int day_driver(FILE *test, FILE *input) {
-  const int p1_ans = 13;
-  [[maybe_unused]] const long long p2_ans = 3121910778619;
- 
-  // int ans = day4_p1(test);
-  // printf("A: %d\n", ans);
-  // assert(p1_ans == ans);
+int day_driver([[maybe_unused]]FILE *test, FILE *input) {
+  [[maybe_unused]] const int p1_ans = 13;
+  [[maybe_unused]] const int p2_ans = 43;
 
-  printf("P1: %d\n", day4_p1(input));
+  printf("P1: %d\n", day4(input, false));
+  printf("P2: %d\n", day4(input, true));
 
   // rewind(test);
   // rewind(input);
@@ -27,7 +24,7 @@ int day_driver(FILE *test, FILE *input) {
   return 0;
 }
 
-int day4_p1(FILE *file) {
+int day4(FILE *file, bool p2) {
   char map[SIZE][SIZE];
 
   char ch;
@@ -49,11 +46,10 @@ int day4_p1(FILE *file) {
     col += 1;
   }
 
-  return paper_rolls(map);
-  // return 0;
+  return paper_rolls(map, p2);
 }
 
-int paper_rolls(char map[SIZE][SIZE]) {
+int paper_rolls(char map[SIZE][SIZE], bool p2) {
   int result[SIZE][SIZE] = {};
   int count = 0;
 
@@ -84,13 +80,37 @@ int paper_rolls(char map[SIZE][SIZE]) {
     }
   }
 
-  for (int i = 0; i < SIZE; i++) {
-    for (int j = 0; j < SIZE; j++) {
-      if (result[i][j] > 4) {
-        count += 1;
+  do {
+    int subcount = 0;
+
+    for (int i = 0; i < SIZE; i++) {
+      for (int j = 0; j < SIZE; j++) {
+        if (result[i][j] > 4) {
+          subcount += 1;
+          if (p2) {
+            result[i][j] = 0;
+            map[i][j] = '.';
+            checkincrease(map, result, i-1, j-1, 1);
+            checkincrease(map, result, i+1, j+1, 1);
+
+            checkincrease(map, result, i-1, j, 1);
+            checkincrease(map, result, i+1, j, 1);
+            checkincrease(map, result, i, j-1, 1);
+            checkincrease(map, result, i, j+1, 1);
+
+            checkincrease(map, result, i-1, j+1, 1);
+            checkincrease(map, result, i+1, j-1, 1);
+          }
+        }
       }
     }
-  }
+
+    if (subcount == 0) {
+      break;
+    }
+
+    count += subcount;
+  } while (p2);
 
   return count;
 }

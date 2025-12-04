@@ -4,7 +4,6 @@
 #define __DAY4_H__
 
 int day_driver(FILE *, FILE *);
-int day4_p1(FILE *);
-long long day4_p2(FILE *);
+int day4(FILE *, bool);
 
 #endif
