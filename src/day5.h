@@ -4,6 +4,7 @@
 #define __DAY5_H__
 
 int day_driver(FILE *, FILE *);
-long long day5_p1(FILE *);
+int day5_p1(FILE *);
+long long day5_p2(FILE *);
 
 #endif
