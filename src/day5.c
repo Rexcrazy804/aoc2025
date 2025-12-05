@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// #define RANGELEN 182
-#define RANGELEN 4
+#define RANGELEN 182
+// #define RANGELEN 4
 
 int is_fresh(long long, long long[RANGELEN], long long[RANGELEN]);
 bool insert_range(long long, long long, long long[RANGELEN], long long[RANGELEN], int*, int);
@@ -19,8 +19,8 @@ int day_driver(FILE *test, FILE *input) {
   // rewind(test);
   // rewind(input);
   //
-  assert(p2_ans == day5_p2(test));
-  // printf("P2: %lld\n", day5_p2(input));
+  // assert(p2_ans == day5_p2(test));
+  printf("P2: %lld\n", day5_p2(input));
 
   return 0;
 }
@@ -120,7 +120,7 @@ long long day5_p2(FILE *file) {
       continue;
     }
 
-    printf("%lld-%lld\n", low[i], high[i]);
+    printf("%lld-%lld: %lld\n", low[i], high[i], high[i] - low[i] + 1);
     fresh += high[i] - low[i] + 1;
   }
 
@@ -140,7 +140,12 @@ int is_fresh(long long id, long long low[RANGELEN], long long high[RANGELEN]) {
 bool insert_range(long long lr, long long hr, long long low[RANGELEN], long long high[RANGELEN], int *used, int idx) {
   int lim = (idx > 0)? *used : RANGELEN;
   for (int i = 0; i < lim; i++) {
-    if (*used == i && idx < 0) {
+    if (i == idx) { continue; }
+    if (low[i] == 0 && high[i] == 0 && idx >= 0) {
+      continue;
+    }
+
+    if (low[i] == 0 && high[i] == 0 && idx < 0) {
       low[i] = lr;
       high[i] = hr;
       *used += 1;
@@ -148,7 +153,7 @@ bool insert_range(long long lr, long long hr, long long low[RANGELEN], long long
     }
 
     if (low[i] == lr && high[i] == hr) {
-      return i != idx;
+      return true;
     }
 
     if (lr > low[i] && hr < high[i]) {
@@ -161,12 +166,12 @@ bool insert_range(long long lr, long long hr, long long low[RANGELEN], long long
       return true;
     }
 
-    if (lr > low[i] && lr < high[i] && hr > high[i]) {
+    if (lr >= low[i] && lr <= high[i] && hr > high[i]) {
       high[i] = hr;
       return true;
     }
 
-    if (hr < high[i] && hr > low[i] && lr < low[i]) {
+    if (hr <= high[i] && hr >= low[i] && lr < low[i]) {
       low[i] = lr;
       return true;
     }
