@@ -1,7 +1,6 @@
 #include "day5.h"
 #include <assert.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 #define RANGELEN 182
 // #define RANGELEN 4
@@ -9,15 +8,15 @@
 int is_fresh(long long, long long[RANGELEN], long long[RANGELEN]);
 bool insert_range(long long, long long, long long[RANGELEN], long long[RANGELEN], int*, int);
 
-int day_driver(FILE *test, FILE *input) {
-  const int p1_ans = 3;
-  const long long p2_ans = 14;
+int day_driver([[maybe_unused]]FILE *test, FILE *input) {
+  [[maybe_unused]]const int p1_ans = 3;
+  [[maybe_unused]]const long long p2_ans = 14;
 
   // assert(p1_ans == day5_p1(test));
-  // printf("P1: %d\n", day5_p1(input));
+  printf("P1: %d\n", day5_p1(input));
 
   // rewind(test);
-  // rewind(input);
+  rewind(input);
   //
   // assert(p2_ans == day5_p2(test));
   printf("P2: %lld\n", day5_p2(input));
@@ -40,7 +39,7 @@ int day5_p1(FILE *file) {
   while ((ch = (char)fgetc(file)) != EOF) {
     if (ch == '\n') {
       if (ranges < RANGELEN) {
-        printf("L: %lld R: %lld\n", left, right);
+        // printf("L: %lld R: %lld\n", left, right);
         low[ranges] = left;
         high[ranges] = right;
         ranges += 1;
@@ -68,7 +67,7 @@ int day5_p1(FILE *file) {
     }
   }
 
-  printf("F: %d\n", fresh);
+  // printf("F: %d\n", fresh);
   return fresh;
 }
 
@@ -120,11 +119,11 @@ long long day5_p2(FILE *file) {
       continue;
     }
 
-    printf("%lld-%lld: %lld\n", low[i], high[i], high[i] - low[i] + 1);
+    // printf("%lld-%lld: %lld\n", low[i], high[i], high[i] - low[i] + 1);
     fresh += high[i] - low[i] + 1;
   }
 
-  printf("F: %lld\n", fresh);
+  // printf("F: %lld\n", fresh);
   return fresh;
 }
 
