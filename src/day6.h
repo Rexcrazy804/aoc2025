@@ -5,6 +5,6 @@
 
 int day_driver(FILE *, FILE *);
 long long day6_p1(FILE *);
-// long long day6_p2(FILE *);
+long long day6_p2(FILE *);
 
 #endif
