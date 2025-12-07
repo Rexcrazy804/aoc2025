@@ -10,10 +10,10 @@ int day_driver([[maybe_unused]] FILE *test, FILE *input) {
   [[maybe_unused]] const long int p2_ans = 40;
 
   // assert(p1_ans == day7_p1(test));
-  // printf("P1: %ld\n", day7_p1(input));
+  printf("P1: %ld\n", day7_p1(input));
 
   // rewind(test);
-  // rewind(input);
+  rewind(input);
   //
   // assert(p2_ans == day7_p2(test));
   printf("P2: %lld\n", day7_p2(input));
