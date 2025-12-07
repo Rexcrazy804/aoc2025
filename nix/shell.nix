@@ -8,6 +8,7 @@
   mkShell,
   clang-tools,
   hyperfine,
+  perf,
 }:
 mkShell.override (old: {stdenv = stdenvAdapters.useMoldLinker gcc15Stdenv;})
 {
@@ -19,5 +20,6 @@ mkShell.override (old: {stdenv = stdenvAdapters.useMoldLinker gcc15Stdenv;})
     pkg-config
     clang-tools
     hyperfine
+    perf
   ];
 }
